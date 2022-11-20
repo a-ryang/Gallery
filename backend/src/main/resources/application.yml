@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: .env.yml
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/gallery
+    username: ${DB_USERNAME}
+    password: ${DB_PWD}
