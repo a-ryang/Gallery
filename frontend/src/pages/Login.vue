@@ -33,8 +33,10 @@
   </div>
 </template>
 <script>
+import store from "@/scripts/store";
 import axios from "axios";
 import { reactive } from "vue";
+import router from "@/scripts/router";
 
 export default {
   setup() {
@@ -46,10 +48,17 @@ export default {
     });
 
     const submit = () => {
-      axios.post("/api/account/login", state.form).then((res) => {
-        console.log(res);
-        window.alert("로그인하였습니다");
-      });
+      axios
+        .post("/api/account/login", state.form)
+        .then((res) => {
+          store.commit("setAccount", res.data);
+          sessionStorage.setItem("id", res.data);
+          router.push({ path: "/" });
+          window.alert("로그인하였습니다");
+        })
+        .catch(() => {
+          window.alert("로그인에 실패 하셨습니다");
+        });
     };
 
     return { state, submit };

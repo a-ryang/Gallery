@@ -3,9 +3,11 @@ package com.aryang.gallery.backend.member.controller;
 import com.aryang.gallery.backend.member.entity.Member;
 import com.aryang.gallery.backend.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
@@ -24,6 +26,7 @@ public class AccountController {
         if (member != null) {
             return member.getId();
         }
-        return 0;
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 }
